@@ -40,11 +40,17 @@
     <!--    DATE/TIME PICKER   -->
     <string name="set">Set</string>
 
-
-
-
+    <!--  CREATE PROFILE ACTIVITY -->
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="carMake">Car Make</string>
+    <string name="carModel">Car Model</string>
+    <string name="carMPG">Car MPG (Combined)</string>
+    <string name="completeProfile">Complete Profile</string>
 
 
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_profile_set_up">Sign in</string>
+    <string name="title_activity_create_profile">Create Profile</string>
 </resources>

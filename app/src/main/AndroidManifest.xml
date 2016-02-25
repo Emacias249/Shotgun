@@ -65,6 +65,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.emanuel.shotgun.TripFeed" />
         </activity>
+        <activity
+            android:name=".CreateProfile"
+            android:label="@string/title_activity_create_profile"
+            android:parentActivityName=".SignUpActivity"
+            android:theme="@style/NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.emanuel.shotgun.SignUpActivity" />
+        </activity>
     </application>
 
 </manifest>
