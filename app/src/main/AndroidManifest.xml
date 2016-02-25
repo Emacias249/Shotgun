@@ -74,6 +74,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.emanuel.shotgun.SignUpActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

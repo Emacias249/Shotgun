@@ -22,7 +22,6 @@
         android:inputType="text"
         android:maxLines="1"
         android:singleLine="true" />
-        1
 
 </android.support.design.widget.TextInputLayout>
 
