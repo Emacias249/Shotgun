@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -18,9 +18,13 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--    CUSTOM STYLES    -->
-    <style name="heading1">
-        <item name="android:textSize">24sp</item>
+    <style name="h1">
+        <item name="android:textSize">28sp</item>
     </style>
+    <style name="h2">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 
     <style name="divider">
         <item name="android:layout_width">match_parent</item>

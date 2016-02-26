@@ -12,8 +12,14 @@
     tools:context="com.emanuel.shotgun.TripFeed"
     tools:showIn="@layout/activity_trip_feed">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Trip"
+        android:onClick="viewTrip"/>
+<!--
     <ListView android:id="@+id/lv_trips"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
-
+-->
 </RelativeLayout>

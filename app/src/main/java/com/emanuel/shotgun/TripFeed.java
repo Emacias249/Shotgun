@@ -30,5 +30,10 @@ public class TripFeed extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    // TODO REMOVE THIS WHEN ACTUALLY POPULATING THE TRIP FEED
+    public void viewTrip(View v){
+        Intent intent = new Intent(this, ViewTripActivity.class);
+        startActivity(intent);
+    }
 
 }

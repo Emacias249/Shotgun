@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -20,7 +19,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Firebase.setAndroidContext(this);
     }
 
     public void btnClick(View v){
