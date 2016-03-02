@@ -30,7 +30,7 @@ public class CreateProfile extends AppCompatActivity {
 
     public void createProfile(View view){
 
-        Intent intent = new Intent(this, TripFeed.class);
+        Intent intent = new Intent(this, TripFeedActivity.class);
         startActivity(intent);
 
     }

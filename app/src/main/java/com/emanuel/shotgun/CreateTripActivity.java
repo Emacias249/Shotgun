@@ -1,6 +1,5 @@
 package com.emanuel.shotgun;
 
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class CreateTripActivity extends AppCompatActivity {
 
@@ -71,13 +67,13 @@ public class CreateTripActivity extends AppCompatActivity {
     }
 
     public void cancel(View v){
-        Intent intent = new Intent(this, TripFeed.class);
+        Intent intent = new Intent(this, TripFeedActivity.class);
         startActivity(intent);
     }
 
     public void createTrip(View v){
         // TODO ADD TRIP TO FIREBASE
-        Intent intent = new Intent(this, TripFeed.class);
+        Intent intent = new Intent(this, TripFeedActivity.class);
         startActivity(intent);
     }
 }
