@@ -7,22 +7,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:context=".SplashScreen">
 
     <TextView android:text="@string/welcome"
+        style="@style/PageTitle"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button android:id="@+id/btn_sign_in"
-        android:layout_width="wrap_content"
+        style="@style/Button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in_short"
         android:onClick="btnClick"/>
 
     <Button android:id="@+id/btn_sign_up"
-        android:layout_width="wrap_content"
+        style="@style/Button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_up"
         android:onClick="btnClick"/>
+
 </LinearLayout>

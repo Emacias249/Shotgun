@@ -2,76 +2,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.emanuel.shotgun.ViewTripActivity">
 
     <!-- REPLACE THIS WITH IMAGE FROM DB -->
-    <TextView android:id="@+id/image"
+    <TextView
+        android:id="@+id/trip_name"
+        style="@style/PageTitle"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="#aaaaaa"
-        android:gravity="center"
-        android:text="IMAGE PLACEHOLDER" />
+        android:gravity="bottom"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:text="Trip to Yosemite"
+        android:background="@drawable/yosemite2"/>
 
-    <!--   TRIP NAME   -->
-    <TextView
-        android:id="@+id/name"
-        style="@style/h1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Trip to Yosemite" />
-
-    <TextView
-        android:id="@+id/location"
-        style="@style/h2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Yosemite, CA" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/depart_time"
-        style="@style/h2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Date to" />
-
-    <TextView
-        android:id="@+id/return_time"
-        style="@style/h2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End Date" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/riders"
-            style="@style/h2"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:text="3 Riders" />
-
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center"
-            android:background="@android:drawable/ic_input_add"/>
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/location"
+                style="@style/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yosemite, CA" />
 
+            <TextView
+                android:id="@+id/description"
+                style="@style/h3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Anyone want to go to Yosemite next week? I'm driving." />
+
+            <TextView
+                android:id="@+id/depart_time"
+                style="@style/h2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Date to" />
+
+            <TextView
+                android:id="@+id/return_time"
+                style="@style/h2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Date" />
+
+            <TextView
+                style="@style/PageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="who's going" />
+
+            <!-- THIS WILL CHANGE TO A LIST VIEW -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/h3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="caitlin mills (driver)\nsydney smith\nkorey baines\ndaniel worthington\nemanuel macias" />
+
+                </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        style="@style/SmallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="right"
+        android:text="join trip" />
 
 </LinearLayout>

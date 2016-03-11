@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">Shotgun!</string>
-    <string name="welcome">Welcome to Shotgun!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="title_activity_sign_up">Sign up</string>
-    <string name="title_activity_trip_feed">TripFeed</string>
-    <string name="title_activity_create_trip">Create a Trip</string>
+    <string name="welcome">hello</string>
+    <string name="action_settings">settings</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_sign_up">sign up</string>
+    <string name="title_activity_trip_feed">trips</string>
+    <string name="title_activity_create_trip">create a trip</string>
     <string name="title_activity_view_trip">ViewTripActivity</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_username">Username</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_username">username</string>
+    <string name="prompt_password">password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="action_sign_up">Sign up</string>
+    <string name="action_sign_in_short">login</string>
+    <string name="action_sign_up">sign up</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -43,15 +43,14 @@
     <!--  CREATE PROFILE ACTIVITY -->
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
-    <string name="carMake">Car Make</string>
-    <string name="carModel">Car Model</string>
+    <string name="carCapacity">Car Capacity</string>
     <string name="carMPG">Car MPG (Combined)</string>
     <string name="completeProfile">Complete Profile</string>
 
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_profile_set_up">Sign in</string>
-    <string name="title_activity_create_profile">Create Profile</string>
+    <string name="title_activity_create_profile">create profile</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

@@ -6,6 +6,7 @@ package com.emanuel.shotgun;
 public class Trip {
     public String name;
     public String location;
+    public String description;
     private long departDateTime;
     private long returnDateTime;
 }

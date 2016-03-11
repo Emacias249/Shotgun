@@ -7,8 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".TripFeedActivity">
 
-
-
     <include layout="@layout/content_trip_feed" />
 
     <android.support.design.widget.FloatingActionButton
@@ -17,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/white"
         android:src="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>
