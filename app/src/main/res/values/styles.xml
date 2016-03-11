@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -13,9 +13,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="android:Theme.Holo.Light.DarkActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="Base.Theme.AppCompat.Light.DarkActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="android:Theme.Holo.Light.DarkActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="Base.Theme.AppCompat.Light.DarkActionBar" />
 
     <!--    CUSTOM STYLES    -->
     <style name="h1">
@@ -32,11 +32,9 @@
         <item name="android:background">?android:attr/listDivider</item>
         <item name="android:layout_marginTop">5dp</item>
     </style>
-    <style name="NoActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="NoActionBar" parent="Base.Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppBarOverlay" parent="android:Theme.Holo.Light.DarkActionBar" />
-    <style name="PopupOverlay" parent="android:Theme.Holo.Light.DarkActionBar" />
 
 </resources>
