@@ -37,7 +37,7 @@
                 style="@style/h2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Yosemite, CA" />
+                android:text="Yosemite Valley, CA" />
 
             <TextView
                 android:id="@+id/description"

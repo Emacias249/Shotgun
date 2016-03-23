@@ -1,4 +1,4 @@
-package com.emanuel.shotgun;
+package com.emanuel.shotgun.utils;
 
 /**
  * Created by Daniel on 2/19/2016.
