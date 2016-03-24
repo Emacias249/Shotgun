@@ -9,4 +9,10 @@ public class Trip {
     public String description;
     private long departDateTime;
     private long returnDateTime;
+
+    public long getDepartDateTime() { return departDateTime; }
+    public long getReturnDateTime() { return returnDateTime; }
+
+    public void setDepartDateTime(long departDT) { departDateTime = departDT; }
+    public void setReturnDateTime(long returnDT) { returnDateTime = returnDT; }
 }

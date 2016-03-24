@@ -1,11 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.emanuel.shotgun.CreateTripActivity">
 
     <ScrollView
@@ -23,90 +25,127 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_activity_create_trip" />
 
-        <EditText
-            android:id="@+id/title"
-            style="@style/EditText"
-            android:hint="@string/title"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true" />
+            <EditText
+                android:id="@+id/title"
+                style="@style/EditText"
+                android:hint="@string/title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <TextView
+                style="@style/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Destination"/>
+
+            <EditText
+                android:id="@+id/address"
+                style="@style/EditText"
+                android:hint="@string/address"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    style="@style/EditText"
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:hint="@string/city"
+                    android:paddingLeft="10dp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+                <Spinner
+                    android:id="@+id/states"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorLtAccent"/>
+            </LinearLayout>
 
 
-        <EditText
-            android:id="@+id/location"
-            style="@style/EditText"
-            android:hint="@string/location"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="selectDateTime"
-        android:orientation="horizontal">
+                <TextView
+                    style="@style/h2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/departTime" />
 
-        <TextView
-            style="@style/h2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/departTime" />
+                <TextView
+                    android:id="@+id/depart_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:onClick="selectDateTime"
+                    android:gravity="center_vertical|end" />
 
-        <TextView android:id="@+id/depart_time"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|end"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:clickable="true"
-        android:onClick="selectDateTime"
-        android:orientation="horizontal">
+                <TextView
+                    style="@style/h2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/returnTime" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/returnTime"
-            style="@style/h2"/>
+                <TextView
+                    android:id="@+id/return_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:onClick="selectDateTime"
+                    android:gravity="center_vertical|end" />
 
-        <TextView android:id="@+id/return_time"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|end"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/description"
+                style="@style/EditText"
+                android:hint="Description"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:gravity="end">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="end"
+                android:orientation="horizontal">
 
-        <Button
-            style="@style/SmallButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:onClick="cancel"
-            android:text="@string/cancel_cap"/>
+                <Button
+                    style="@style/SmallButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:onClick="cancel"
+                    android:text="@string/cancel_cap" />
 
-        <Button
-            style="@style/SmallButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:onClick="createTrip"
-            android:text="@string/create"/>
-    </LinearLayout>
+                <Button
+                    style="@style/SmallButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:onClick="createTrip"
+                    android:text="@string/create" />
+            </LinearLayout>
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>
-    </LinearLayout>

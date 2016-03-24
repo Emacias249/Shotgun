@@ -6,8 +6,13 @@ import java.util.Date;
  * Created by Daniel on 3/23/2016.
  */
 public class User {
-    private String name;
-    private Date birthdate;
-    private String phoneNumber;
+    public String username;
+    public String firstName;
+    public String lastName;
+    public int carOccupancy;
+    public int carMPG;
 
+    public boolean isDriver(){
+        return carOccupancy != 0;
+    }
 }

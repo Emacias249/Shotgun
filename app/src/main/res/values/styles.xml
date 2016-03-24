@@ -53,7 +53,7 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
-    <style name="EditText" parent="TextStyle">
+    <style name="EditText">
         <item name="android:background">@color/colorLtAccent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
