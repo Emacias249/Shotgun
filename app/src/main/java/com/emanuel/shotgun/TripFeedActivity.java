@@ -62,9 +62,9 @@ public class TripFeedActivity extends AppCompatActivity {
         private final ArrayList<Trip> trips;
 
         public TripAdapter(Context context, ArrayList<Trip> trips){
-            super(context, -1, trips);
-            this.context = context;
-            this.trips = trips;
+                super(context, -1, trips);
+                this.context = context;
+                this.trips = trips;
         }
 
         @Override
