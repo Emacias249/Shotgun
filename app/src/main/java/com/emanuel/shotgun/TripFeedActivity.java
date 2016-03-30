@@ -80,7 +80,4 @@ public class TripFeedActivity extends AppCompatActivity {
             return rowView;
         }
     }
-
-
-
 }

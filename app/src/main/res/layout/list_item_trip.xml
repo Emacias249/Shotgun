@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/colorBackground"
+    android:padding="5dp"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/trip_name"
         style="@style/h2"
+        android:text="Trip name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/trip_location"
         style="@style/h3"
+        android:text="Trip location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
