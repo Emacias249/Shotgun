@@ -33,14 +33,14 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/trip_location"
                 style="@style/h2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Yosemite Valley, CA" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/trip_description"
                 style="@style/h3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

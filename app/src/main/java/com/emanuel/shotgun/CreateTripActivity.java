@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -106,7 +107,6 @@ public class CreateTripActivity extends AppCompatActivity {
         } else{
             calendar.setTimeInMillis(returnTime);
         }
-        //Toast.makeText(CreateTripActivity.this, calendar.getTime().getYear() + ", " + calendar.getTime().getMonth() + ", " + calendar.getTime().getDay(), Toast.LENGTH_SHORT).show();
         datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         timePicker.setCurrentHour(calendar.getTime().getHours());
         timePicker.setCurrentMinute(calendar.getTime().getMinutes());
@@ -154,6 +154,9 @@ public class CreateTripActivity extends AppCompatActivity {
 
     public void createTrip(View v){
 
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs),0);
+        String username = sharedPref.getString(getString(R.string.username_key),getString(R.string.guest));
+
         String tripName = et_Title.getText().toString();
         String tripDescription = et_Description.getText().toString();
         String tripAddress = et_Address.getText().toString();
@@ -183,6 +186,8 @@ public class CreateTripActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        trip.creatorId = db.getUser(username).id;
         db.addTrip(trip);
         db.close();
 

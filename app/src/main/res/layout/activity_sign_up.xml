@@ -49,7 +49,7 @@
 
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/sign_up_button"
                 style="@style/Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

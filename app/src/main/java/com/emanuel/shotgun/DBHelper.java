@@ -30,7 +30,7 @@ public class DBHelper {
     //**********************        CONTRACT        *******************************
 
     private static abstract class UserTable implements BaseColumns {
-        public static final String TABLE_NAME = "User";
+        public static final String TABLE_NAME = "UserTable";
 
         public static final String COLUMN_USERNAME = "Username";
         public static final String COLUMN_PASSWORD = "Password";
@@ -56,7 +56,9 @@ public class DBHelper {
     private static abstract class TripTable implements BaseColumns {
         public static final String TABLE_NAME = "Trip";
 
+        public static final String COLUMN_CREATOR_ID = "CreatorID";
         public static final String COLUMN_NAME = "Name";
+        public static final String COLUMN_DRIVER_ID = "DriverId";
         public static final String COLUMN_LOCATION = "Location";
         public static final String COLUMN_DESCRIPTION = "Description";
         public static final String COLUMN_DEPART_TIME = "DepartTime";
@@ -65,11 +67,29 @@ public class DBHelper {
         public static final String CREATE_TABLE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         _ID + " " + TYPE_INT + " " + PK + COMMA +
+                        COLUMN_CREATOR_ID + " " + TYPE_INT + COMMA +
                         COLUMN_NAME + " " + TYPE_TEXT + COMMA +
+                        COLUMN_DRIVER_ID + " " + TYPE_INT + COMMA +
                         COLUMN_LOCATION + " " + TYPE_TEXT + COMMA +
                         COLUMN_DESCRIPTION + " " + TYPE_TEXT + COMMA +
                         COLUMN_DEPART_TIME + " " + TYPE_INT + COMMA +
                         COLUMN_RETURN_TIME + " " + TYPE_INT + ")";
+
+        public static final String DROP_TABLE =
+                "DROP TABLE IF EXISTS " + TABLE_NAME;
+    }
+
+    private static abstract class TripUserTable implements BaseColumns {
+        public static final String TABLE_NAME = "TripUser";
+
+        public static final String COLUMN_TRIP_ID = "TripId";
+        public static final String COLUMN_USER_ID = "UserId";
+
+        public static final String CREATE_TABLE =
+                "CREATE TABLE " + TABLE_NAME + " (" +
+                        _ID + " " + TYPE_INT + " " + PK + COMMA +
+                        COLUMN_TRIP_ID + " " + TYPE_INT + COMMA +
+                        COLUMN_USER_ID + " " + TYPE_INT + ")";
 
         public static final String DROP_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -89,11 +109,13 @@ public class DBHelper {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(UserTable.CREATE_TABLE);
             db.execSQL(TripTable.CREATE_TABLE);
+            db.execSQL(TripUserTable.CREATE_TABLE);
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL(UserTable.DROP_TABLE);
             db.execSQL(TripTable.DROP_TABLE);
+            db.execSQL(TripUserTable.DROP_TABLE);
             onCreate(db);
         }
 
@@ -120,6 +142,38 @@ public class DBHelper {
 
     //*******************************        ACCESSORS        *******************************
 
+    public ArrayList<User> getUsers(){
+        ArrayList<User> users = new ArrayList<>();
+        Cursor c = mDB.query(UserTable.TABLE_NAME, null, null, null, null, null, null);
+        while(c.moveToNext()){
+            User user = new User();
+            user.id = c.getInt(c.getColumnIndex(UserTable._ID));
+            user.username = c.getString(c.getColumnIndex(UserTable.COLUMN_USERNAME));
+            user.firstName = c.getString(c.getColumnIndex(UserTable.COLUMN_FIRST_NAME));
+            user.lastName = c.getString(c.getColumnIndex(UserTable.COLUMN_LAST_NAME));
+            user.carMPG = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_MPG));
+            user.carOccupancy = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_OCCUPANCY));
+            users.add(user);
+        }
+        return users;
+    }
+
+    public User getUser(String username){
+        String whereClause = UserTable.COLUMN_USERNAME + " = '" + username + "'";
+        Cursor c = mDB.query(UserTable.TABLE_NAME, null, whereClause, null, null, null, null);
+
+        User user = new User();
+        while(c.moveToNext()) {
+            user.id = c.getInt(c.getColumnIndex(UserTable._ID));
+            user.username = c.getString(c.getColumnIndex(UserTable.COLUMN_USERNAME));
+            user.firstName = c.getString(c.getColumnIndex(UserTable.COLUMN_FIRST_NAME));
+            user.lastName = c.getString(c.getColumnIndex(UserTable.COLUMN_LAST_NAME));
+            user.carMPG = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_MPG));
+            user.carOccupancy = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_OCCUPANCY));
+        }
+        return user;
+    }
+
     public ArrayList<String> getUsernames(){
         ArrayList<String> usernames = new ArrayList<>();
         String[] columns = new String[] {UserTable.COLUMN_USERNAME};
@@ -136,7 +190,28 @@ public class DBHelper {
         Cursor c = mDB.query(TripTable.TABLE_NAME, null, null, null, null, null, TripTable.COLUMN_DEPART_TIME);
         while(c.moveToNext()){
             Trip trip = new Trip();
+            trip.creatorId = c.getInt(c.getColumnIndex(TripTable.COLUMN_CREATOR_ID));
             trip.name = c.getString(c.getColumnIndex(TripTable.COLUMN_NAME));
+            trip.driverId = c.getInt(c.getColumnIndex(TripTable.COLUMN_DRIVER_ID));
+            trip.description = c.getString(c.getColumnIndex(TripTable.COLUMN_DESCRIPTION));
+            trip.location = c.getString(c.getColumnIndex(TripTable.COLUMN_LOCATION));
+            trip.setDepartDateTime(c.getLong(c.getColumnIndex(TripTable.COLUMN_DEPART_TIME)));
+            trip.setReturnDateTime(c.getLong(c.getColumnIndex(TripTable.COLUMN_RETURN_TIME)));
+            trips.add(trip);
+        }
+        return trips;
+    }
+
+    public ArrayList<Trip> getMyTrips(String username){
+        int creatorId = getUser(username).id;
+        String whereClause = TripTable.COLUMN_CREATOR_ID + " = " + creatorId;
+        ArrayList<Trip> trips = new ArrayList<>();
+        Cursor c = mDB.query(TripTable.TABLE_NAME, null, whereClause, null, null, null, TripTable.COLUMN_DEPART_TIME);
+        while(c.moveToNext()){
+            Trip trip = new Trip();
+            trip.creatorId = c.getInt(c.getColumnIndex(TripTable.COLUMN_CREATOR_ID));
+            trip.name = c.getString(c.getColumnIndex(TripTable.COLUMN_NAME));
+            trip.driverId = c.getInt(c.getColumnIndex(TripTable.COLUMN_DRIVER_ID));
             trip.description = c.getString(c.getColumnIndex(TripTable.COLUMN_DESCRIPTION));
             trip.location = c.getString(c.getColumnIndex(TripTable.COLUMN_LOCATION));
             trip.setDepartDateTime(c.getLong(c.getColumnIndex(TripTable.COLUMN_DEPART_TIME)));
@@ -166,7 +241,9 @@ public class DBHelper {
 
     public void addTrip(Trip trip){
         ContentValues cv = new ContentValues();
+        cv.put(TripTable.COLUMN_CREATOR_ID, trip.creatorId);
         cv.put(TripTable.COLUMN_NAME, trip.name);
+        cv.put(TripTable.COLUMN_DRIVER_ID, trip.driverId);
         cv.put(TripTable.COLUMN_DESCRIPTION, trip.description);
         cv.put(TripTable.COLUMN_LOCATION, trip.location);
         cv.put(TripTable.COLUMN_DEPART_TIME, trip.getDepartDateTime());
@@ -179,5 +256,13 @@ public class DBHelper {
     public boolean userExists(String username){
         ArrayList<String> users = this.getUsernames();
         return users.contains(username);
+    }
+
+    public boolean isValidPassword(String username, String password){
+        String[] columns = new String[] {UserTable.COLUMN_USERNAME, UserTable.COLUMN_PASSWORD};
+        String whereClause = UserTable.COLUMN_USERNAME + " = '" + username + "'";
+        Cursor c = mDB.query(UserTable.TABLE_NAME, columns, whereClause, null, null, null, null);
+        c.moveToFirst();
+        return password.equals(c.getString(c.getColumnIndex(UserTable.COLUMN_PASSWORD)));
     }
 }

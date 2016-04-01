@@ -1,4 +1,9 @@
 <resources>
+    <!-- SHARED PREFS -->
+    <string name="my_prefs">com.example.shotgun.my_prefs</string>
+    <string name="username_key">USERNAME_KEY</string>
+    <string name="guest">GUEST</string>
+
     <string name="app_name">Shotgun!</string>
     <string name="welcome">Welcome to Shotgun!</string>
     <string name="action_settings">Settings</string>
