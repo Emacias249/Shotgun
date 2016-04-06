@@ -190,6 +190,7 @@ public class DBHelper {
         Cursor c = mDB.query(TripTable.TABLE_NAME, null, null, null, null, null, TripTable.COLUMN_DEPART_TIME);
         while(c.moveToNext()){
             Trip trip = new Trip();
+            trip.id = c.getInt(c.getColumnIndex(TripTable._ID));
             trip.creatorId = c.getInt(c.getColumnIndex(TripTable.COLUMN_CREATOR_ID));
             trip.name = c.getString(c.getColumnIndex(TripTable.COLUMN_NAME));
             trip.driverId = c.getInt(c.getColumnIndex(TripTable.COLUMN_DRIVER_ID));
@@ -202,6 +203,12 @@ public class DBHelper {
         return trips;
     }
 
+    public ArrayList<User> getUsersForTrip(Trip trip){
+        // inner join TripUserTable on UserTable
+        // TODO: IMPLEMENT
+        return null;
+    }
+
     public ArrayList<Trip> getMyTrips(String username){
         int creatorId = getUser(username).id;
         String whereClause = TripTable.COLUMN_CREATOR_ID + " = " + creatorId;
@@ -209,6 +216,7 @@ public class DBHelper {
         Cursor c = mDB.query(TripTable.TABLE_NAME, null, whereClause, null, null, null, TripTable.COLUMN_DEPART_TIME);
         while(c.moveToNext()){
             Trip trip = new Trip();
+            trip.id = c.getInt(c.getColumnIndex(TripTable._ID));
             trip.creatorId = c.getInt(c.getColumnIndex(TripTable.COLUMN_CREATOR_ID));
             trip.name = c.getString(c.getColumnIndex(TripTable.COLUMN_NAME));
             trip.driverId = c.getInt(c.getColumnIndex(TripTable.COLUMN_DRIVER_ID));
@@ -249,6 +257,19 @@ public class DBHelper {
         cv.put(TripTable.COLUMN_DEPART_TIME, trip.getDepartDateTime());
         cv.put(TripTable.COLUMN_RETURN_TIME, trip.getReturnDateTime());
         mDB.insert(TripTable.TABLE_NAME, null, cv);
+    }
+
+    public void joinTrip(Trip trip, User user){
+        ContentValues cv = new ContentValues();
+        cv.put(TripUserTable.COLUMN_TRIP_ID, trip.id);
+        cv.put(TripUserTable.COLUMN_USER_ID, user.id);
+        mDB.insert(TripUserTable.TABLE_NAME, null, cv);
+    }
+
+    public void cancelTrip(Trip trip, User user){
+        // if user.id == trip.creatorId, allow delete of trip
+        // be sure to also delete all rows where for this trip.id in TripUserTable
+        // TODO: IMPLEMENT
     }
 
     //*******************************        USEFUL METHODS        *******************************

@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Trip {
 
+    public int id;
     public int creatorId;
     public int driverId;
     public String name;
