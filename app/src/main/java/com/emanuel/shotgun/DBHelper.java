@@ -204,9 +204,23 @@ public class DBHelper {
     }
 
     public ArrayList<User> getUsersForTrip(Trip trip){
-        // inner join TripUserTable on UserTable
-        // TODO: IMPLEMENT
-        return null;
+        // TODO: TEST
+        ArrayList<User> users = new ArrayList<>();
+        Cursor c = mDB.rawQuery("SELECT * FROM TripUser " +
+                "INNER JOIN UserTable ON " +
+                "TripUser.UserId = UserTable._Id " +
+                "WHERE TripUser.TripId = " + trip.id, null);
+        while(c.moveToNext()){
+            User user = new User();
+            user.id = c.getInt(c.getColumnIndex(UserTable._ID));
+            user.username = c.getString(c.getColumnIndex(UserTable.COLUMN_USERNAME));
+            user.firstName = c.getString(c.getColumnIndex(UserTable.COLUMN_FIRST_NAME));
+            user.lastName = c.getString(c.getColumnIndex(UserTable.COLUMN_LAST_NAME));
+            user.carMPG = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_MPG));
+            user.carOccupancy = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_OCCUPANCY));
+            users.add(user);
+        }
+        return users;
     }
 
     public ArrayList<Trip> getMyTrips(String username){
@@ -259,10 +273,10 @@ public class DBHelper {
         mDB.insert(TripTable.TABLE_NAME, null, cv);
     }
 
-    public void joinTrip(Trip trip, User user){
+    public void joinTrip(int tripId, int userId){
         ContentValues cv = new ContentValues();
-        cv.put(TripUserTable.COLUMN_TRIP_ID, trip.id);
-        cv.put(TripUserTable.COLUMN_USER_ID, user.id);
+        cv.put(TripUserTable.COLUMN_TRIP_ID, tripId);
+        cv.put(TripUserTable.COLUMN_USER_ID, userId);
         mDB.insert(TripUserTable.TABLE_NAME, null, cv);
     }
 

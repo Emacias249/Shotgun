@@ -70,6 +70,7 @@ public class TripFeedActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Trip selectedTrip = trips.get(position);
                 Intent intent = new Intent(getBaseContext(),ViewTripActivity.class);
+                intent.putExtra(ViewTripActivity.TRIP_ID_KEY, selectedTrip.id);
                 intent.putExtra(ViewTripActivity.TRIP_NAME_KEY,selectedTrip.name);
                 intent.putExtra(ViewTripActivity.TRIP_LOCATION_KEY,selectedTrip.location);
                 intent.putExtra(ViewTripActivity.TRIP_DESCRIPTION_KEY,selectedTrip.description);

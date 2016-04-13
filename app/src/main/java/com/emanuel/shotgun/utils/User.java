@@ -16,4 +16,9 @@ public class User {
     public boolean isDriver(){
         return carOccupancy != 0;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

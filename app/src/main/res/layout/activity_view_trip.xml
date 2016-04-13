@@ -69,7 +69,6 @@
                 android:layout_marginTop="10dp"
                 android:text="who's going" />
 
-            <!-- THIS WILL CHANGE TO A LIST VIEW -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,15 +76,13 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp">
 
-                    <TextView
+                    <ListView android:id="@+id/riders"
                         style="@style/h3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:text="caitlin mills (driver)\nsydney smith\nkorey baines\ndaniel worthington\nemanuel macias" />
-
+                        android:paddingTop="10dp"/>
                 </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -96,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_gravity="right"
+        android:onClick="joinTrip_Click"
         android:text="join trip" />
 
 </LinearLayout>
