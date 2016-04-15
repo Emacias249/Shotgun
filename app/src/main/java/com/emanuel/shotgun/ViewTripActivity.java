@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class ViewTripActivity extends AppCompatActivity {
+
     public final static String TRIP_NAME_KEY = "TripNameKey";
     public final static String TRIP_LOCATION_KEY = "TripLocationKey";
     public final static String TRIP_DESCRIPTION_KEY = "TripDescriptionKey";
