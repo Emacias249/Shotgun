@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.emanuel.shotgun.ViewTripActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+
+    <item android:id="@+id/action_find_friends" android:title="@string/action_find_friends"
+        android:orderInCategory="1" app:showAsAction="never" />
+    <item android:id="@+id/action_explore" android:title="@string/action_explore"
+        android:orderInCategory="2" app:showAsAction="never" />
+    <item android:id="@+id/action_sign_out" android:title="Sign Out"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

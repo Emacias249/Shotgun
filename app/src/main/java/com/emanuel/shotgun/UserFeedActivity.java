@@ -2,6 +2,7 @@ package com.emanuel.shotgun;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,14 +34,19 @@ public class UserFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_feed);
 
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs),0);
+        String username = sharedPref.getString(getString(R.string.username_key),getString(R.string.guest));
+
         DBHelper db = new DBHelper(this);
         try {
             db.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        users = db.getUsers();
+        users = db.getUsers(username);
         db.close();
+
+        listView = (ListView) findViewById(R.id.lv_users);
 
         adapter = new UserAdapter(this, users);
         listView.setAdapter(adapter);
@@ -63,7 +69,6 @@ public class UserFeedActivity extends AppCompatActivity {
             TextView tv_name = (TextView) rowView.findViewById(R.id.username);
 
             tv_name.setText(users.get(position).firstName + " " + users.get(position).lastName);
-
 
             return rowView;
         }

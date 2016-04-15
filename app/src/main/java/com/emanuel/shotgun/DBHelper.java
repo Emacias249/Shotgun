@@ -142,9 +142,10 @@ public class DBHelper {
 
     //*******************************        ACCESSORS        *******************************
 
-    public ArrayList<User> getUsers(){
+    public ArrayList<User> getUsers(String username){
         ArrayList<User> users = new ArrayList<>();
-        Cursor c = mDB.query(UserTable.TABLE_NAME, null, null, null, null, null, null);
+        String whereClause = UserTable.COLUMN_USERNAME + " <> '" + username + "'";
+        Cursor c = mDB.query(UserTable.TABLE_NAME, null, whereClause, null, null, null, null);
         while(c.moveToNext()){
             User user = new User();
             user.id = c.getInt(c.getColumnIndex(UserTable._ID));

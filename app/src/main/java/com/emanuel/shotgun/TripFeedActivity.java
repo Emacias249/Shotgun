@@ -94,15 +94,31 @@ public class TripFeedActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent intent;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+        switch(id){
+            case R.id.action_find_friends:
+                intent = new Intent(this, UserFeedActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_explore:
+                return true;
+            case R.id.action_sign_out:
+                signOut();
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void signOut(){
+        // SAVE THE CURRENT USER AS THIS USER
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs),0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.username_key), "");
+        editor.commit();
     }
 
     private class TripAdapter extends ArrayAdapter<Trip> {
