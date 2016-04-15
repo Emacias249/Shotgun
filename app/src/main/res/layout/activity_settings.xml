@@ -9,4 +9,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_settings" tools:context="com.emanuel.shotgun.SettingsActivity">
 
+    <Preference
+        android:key="pref_key_user_view_permission"
+        android:dependency="pref_key_auto_delete"
+        android:summary="@string/pref_summary_user_view"
+        android:title="@string/pref_title_user_view" />
+
 </RelativeLayout>
