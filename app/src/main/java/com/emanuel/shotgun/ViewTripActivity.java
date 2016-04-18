@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class ViewTripActivity extends AppCompatActivity {
 
     public final static String TRIP_ID_KEY = "TripIdKey";
+    public final static String TRIP_CREATOR_ID_KEY = "TripCreatorIdKey";
     public final static String TRIP_NAME_KEY = "TripNameKey";
     public final static String TRIP_LOCATION_KEY = "TripLocationKey";
     public final static String TRIP_DESCRIPTION_KEY = "TripDescriptionKey";
@@ -27,11 +28,13 @@ public class ViewTripActivity extends AppCompatActivity {
     public final static String TRIP_RETURN_TIME_KEY = "TripReturnTimeKey";
 
     private Trip selectedTrip;
+    private User creator;
     private ArrayList<User> usersForTrip;
     private ArrayAdapter<User> userAdapter;
 
     // UI elements
     private TextView tripNameView;
+    private TextView tripCreatorView;
     private TextView tripLocationView;
     private TextView tripDescriptionView;
     private TextView tripDepartView;
@@ -43,9 +46,12 @@ public class ViewTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_trip);
 
+        selectedTrip = new Trip();
+
         // Get values from intent
         Intent intent = getIntent();
-        selectedTrip.id = intent.getIntExtra(TRIP_ID_KEY,0);
+        selectedTrip.id = intent.getIntExtra(TRIP_ID_KEY, 0);
+        selectedTrip.creatorId = intent.getIntExtra(TRIP_CREATOR_ID_KEY, 0);
         selectedTrip.name = intent.getStringExtra(TRIP_NAME_KEY);
         selectedTrip.location = intent.getStringExtra(TRIP_LOCATION_KEY);
         selectedTrip.description = intent.getStringExtra(TRIP_DESCRIPTION_KEY);
@@ -54,18 +60,21 @@ public class ViewTripActivity extends AppCompatActivity {
 
         // Set up UI elements
         tripNameView = (TextView) findViewById(R.id.trip_name);
+        tripCreatorView = (TextView) findViewById(R.id.trip_creator);
         tripLocationView = (TextView) findViewById(R.id.trip_location);
         tripDescriptionView = (TextView) findViewById(R.id.trip_description);
         tripDepartView = (TextView) findViewById(R.id.depart_time);
         tripReturnView = (TextView) findViewById(R.id.return_time);
+        ridersView = (ListView) findViewById(R.id.riders);
 
         // Set proper values to text fields
         tripNameView.setText(selectedTrip.name);
         tripLocationView.setText(selectedTrip.location);
         tripDescriptionView.setText(selectedTrip.description);
-        tripDepartView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getDepartDateTime()));
-        tripReturnView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getReturnDateTime()));
+        tripDepartView.setText("FROM " + String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getDepartDateTime()));
+        tripReturnView.setText("TO " + String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getReturnDateTime()));
 
+        // Get information from database
         DBHelper db = new DBHelper(this);
         try {
             db.open();
@@ -73,7 +82,11 @@ public class ViewTripActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         usersForTrip = db.getUsersForTrip(selectedTrip);
+        creator = db.getUser(selectedTrip.creatorId);
         db.close();
+
+        // set value to creator view
+        tripCreatorView.setText(creator.firstName + " " + creator.lastName);
 
         userAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usersForTrip);
         ridersView.setAdapter(userAdapter);
@@ -113,10 +126,11 @@ public class ViewTripActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         User user = db.getUser(username);
-        db.joinTrip(selectedTrip.id, user.id);
+        if(db.joinTrip(selectedTrip, user.id)){
+            usersForTrip.add(user);
+            userAdapter.notifyDataSetChanged();
+        }
         db.close();
 
-        usersForTrip.add(user);
-        userAdapter.notifyDataSetChanged();
     }
 }

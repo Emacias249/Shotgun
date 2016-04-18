@@ -313,7 +313,7 @@ public class DBHelper {
             cv.put(UserTable.COLUMN_CAR_OCCUPANCY,user.carOccupancy);
             cv.put(UserTable.COLUMN_CAR_MPG, user.carMPG);
         }
-        mDB.insert(UserTable.TABLE_NAME, null,cv);
+        mDB.insert(UserTable.TABLE_NAME, null, cv);
     }
 
     public void addTrip(Trip trip){
@@ -325,14 +325,23 @@ public class DBHelper {
         cv.put(TripTable.COLUMN_LOCATION, trip.location);
         cv.put(TripTable.COLUMN_DEPART_TIME, trip.getDepartDateTime());
         cv.put(TripTable.COLUMN_RETURN_TIME, trip.getReturnDateTime());
-        mDB.insert(TripTable.TABLE_NAME, null, cv);
+        trip.id = (int)mDB.insert(TripTable.TABLE_NAME, null, cv);
+
+        joinTrip(trip, trip.creatorId);
     }
 
-    public void joinTrip(int tripId, int userId){
-        ContentValues cv = new ContentValues();
-        cv.put(TripUserTable.COLUMN_TRIP_ID, tripId);
-        cv.put(TripUserTable.COLUMN_USER_ID, userId);
-        mDB.insert(TripUserTable.TABLE_NAME, null, cv);
+    public boolean joinTrip(Trip trip, int userId){
+
+        if (!userAssociatedWithTrip(trip.id, userId) && (getRemainingSeats(trip) > 0)){
+            ContentValues cv = new ContentValues();
+            cv.put(TripUserTable.COLUMN_TRIP_ID, trip.id);
+            cv.put(TripUserTable.COLUMN_USER_ID, userId);
+            mDB.insert(TripUserTable.TABLE_NAME, null, cv);
+
+            return true;
+        }
+        else
+            return false;
     }
 
     public void cancelTrip(Trip trip, User user){
@@ -351,6 +360,12 @@ public class DBHelper {
     public boolean tripExists(String tripName){
         ArrayList<String> trips = this.getTripNames();
         return trips.contains(tripName);
+    }
+
+    public boolean userAssociatedWithTrip(int tripId, int userId){
+        String query = "SELECT * FROM TripUser WHERE TripId = " + tripId + " AND UserId = " + userId;
+        Cursor c = mDB.rawQuery(query, null);
+        return c.moveToFirst();
     }
 
     public boolean isValidPassword(String username, String password){
