@@ -175,6 +175,22 @@ public class DBHelper {
         return user;
     }
 
+    public User getUser(int  userId){
+        String whereClause = UserTable._ID + " = '" + userId + "'";
+        Cursor c = mDB.query(UserTable.TABLE_NAME, null, whereClause, null, null, null, null);
+
+        User user = new User();
+        while(c.moveToNext()) {
+            user.id = c.getInt(c.getColumnIndex(UserTable._ID));
+            user.username = c.getString(c.getColumnIndex(UserTable.COLUMN_USERNAME));
+            user.firstName = c.getString(c.getColumnIndex(UserTable.COLUMN_FIRST_NAME));
+            user.lastName = c.getString(c.getColumnIndex(UserTable.COLUMN_LAST_NAME));
+            user.carMPG = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_MPG));
+            user.carOccupancy = c.getInt(c.getColumnIndex(UserTable.COLUMN_CAR_OCCUPANCY));
+        }
+        return user;
+    }
+
     public ArrayList<String> getUsernames(){
         ArrayList<String> usernames = new ArrayList<>();
         String[] columns = new String[] {UserTable.COLUMN_USERNAME};
@@ -184,6 +200,17 @@ public class DBHelper {
         }
         c.close();
         return usernames;
+    }
+
+    public ArrayList<String> getTripNames(){
+        ArrayList<String> tripNames = new ArrayList<>();
+        String[] columns = new String[] {TripTable.COLUMN_NAME};
+        Cursor c = mDB.query(TripTable.TABLE_NAME, columns, null,null,null,null,null);
+        while(c.moveToNext()){
+            tripNames.add(c.getString(c.getColumnIndex(TripTable.COLUMN_NAME)));
+        }
+        c.close();
+        return tripNames;
     }
 
     public ArrayList<Trip> getTrips(){
@@ -202,6 +229,33 @@ public class DBHelper {
             trips.add(trip);
         }
         return trips;
+    }
+
+    public String getTripCreator(Trip trip){
+        String whereClause = UserTable._ID + " = '" + trip.creatorId + "'";
+        Cursor c = mDB.query(UserTable.TABLE_NAME, null, whereClause, null, null, null, null);
+
+        if(c.moveToFirst()) {
+            StringBuilder user = new StringBuilder();
+            user.append(c.getString(c.getColumnIndex(UserTable.COLUMN_FIRST_NAME)));
+            user.append(" ");
+            user.append(c.getString(c.getColumnIndex(UserTable.COLUMN_LAST_NAME)));
+            return user.toString();
+        }
+        else
+            return "";
+    }
+
+    public int getRemainingSeats(Trip trip){
+
+        User creator = getUser(trip.creatorId);
+
+        String countQuery = "SELECT COUNT(DISTINCT UserId) FROM TripUser WHERE TripId = " + trip.id;
+        Cursor c = mDB.rawQuery(countQuery, null);
+        if(c.moveToFirst())
+            return creator.carOccupancy - c.getInt(0);
+        else
+            return -1;
     }
 
     public ArrayList<User> getUsersForTrip(Trip trip){
@@ -292,6 +346,11 @@ public class DBHelper {
     public boolean userExists(String username){
         ArrayList<String> users = this.getUsernames();
         return users.contains(username);
+    }
+
+    public boolean tripExists(String tripName){
+        ArrayList<String> trips = this.getTripNames();
+        return trips.contains(tripName);
     }
 
     public boolean isValidPassword(String username, String password){

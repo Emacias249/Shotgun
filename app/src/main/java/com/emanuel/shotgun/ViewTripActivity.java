@@ -1,27 +1,34 @@
 package com.emanuel.shotgun;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.emanuel.shotgun.utils.Trip;
+import com.emanuel.shotgun.utils.User;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ViewTripActivity extends AppCompatActivity {
 
+    public final static String TRIP_ID_KEY = "TripIdKey";
     public final static String TRIP_NAME_KEY = "TripNameKey";
     public final static String TRIP_LOCATION_KEY = "TripLocationKey";
     public final static String TRIP_DESCRIPTION_KEY = "TripDescriptionKey";
     public final static String TRIP_DEPART_TIME_KEY = "TripDepartTimeKey";
     public final static String TRIP_RETURN_TIME_KEY = "TripReturnTimeKey";
 
-    private String tripName;
-    private String tripLocation;
-    private String tripDescription;
-    private long tripDepartTime;
-    private long tripReturnTime;
+    private Trip selectedTrip;
+    private ArrayList<User> usersForTrip;
+    private ArrayAdapter<User> userAdapter;
 
     // UI elements
     private TextView tripNameView;
@@ -29,6 +36,7 @@ public class ViewTripActivity extends AppCompatActivity {
     private TextView tripDescriptionView;
     private TextView tripDepartView;
     private TextView tripReturnView;
+    private ListView ridersView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +45,12 @@ public class ViewTripActivity extends AppCompatActivity {
 
         // Get values from intent
         Intent intent = getIntent();
-        tripName = intent.getStringExtra(TRIP_NAME_KEY);
-        tripLocation = intent.getStringExtra(TRIP_LOCATION_KEY);
-        tripDescription = intent.getStringExtra(TRIP_DESCRIPTION_KEY);
-        tripDepartTime = intent.getLongExtra(TRIP_DEPART_TIME_KEY, 0);
-        tripReturnTime = intent.getLongExtra(TRIP_RETURN_TIME_KEY, 0);
+        selectedTrip.id = intent.getIntExtra(TRIP_ID_KEY,0);
+        selectedTrip.name = intent.getStringExtra(TRIP_NAME_KEY);
+        selectedTrip.location = intent.getStringExtra(TRIP_LOCATION_KEY);
+        selectedTrip.description = intent.getStringExtra(TRIP_DESCRIPTION_KEY);
+        selectedTrip.setDepartDateTime(intent.getLongExtra(TRIP_DEPART_TIME_KEY, 0));
+        selectedTrip.setReturnDateTime(intent.getLongExtra(TRIP_RETURN_TIME_KEY, 0));
 
         // Set up UI elements
         tripNameView = (TextView) findViewById(R.id.trip_name);
@@ -51,11 +60,23 @@ public class ViewTripActivity extends AppCompatActivity {
         tripReturnView = (TextView) findViewById(R.id.return_time);
 
         // Set proper values to text fields
-        tripNameView.setText(tripName);
-        tripLocationView.setText(tripLocation);
-        tripDescriptionView.setText(tripDescription);
-        tripDepartView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", tripDepartTime));
-        tripReturnView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", tripReturnTime));
+        tripNameView.setText(selectedTrip.name);
+        tripLocationView.setText(selectedTrip.location);
+        tripDescriptionView.setText(selectedTrip.description);
+        tripDepartView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getDepartDateTime()));
+        tripReturnView.setText(String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", selectedTrip.getReturnDateTime()));
+
+        DBHelper db = new DBHelper(this);
+        try {
+            db.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        usersForTrip = db.getUsersForTrip(selectedTrip);
+        db.close();
+
+        userAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, usersForTrip);
+        ridersView.setAdapter(userAdapter);
     }
 
     @Override
@@ -78,5 +99,24 @@ public class ViewTripActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void joinTrip_Click(View v){
+        // TODO TEST
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs), 0);
+        String username = sharedPref.getString(getString(R.string.username_key),getString(R.string.guest));
+
+        DBHelper db = new DBHelper(this);
+        try {
+            db.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        User user = db.getUser(username);
+        db.joinTrip(selectedTrip.id, user.id);
+        db.close();
+
+        usersForTrip.add(user);
+        userAdapter.notifyDataSetChanged();
     }
 }

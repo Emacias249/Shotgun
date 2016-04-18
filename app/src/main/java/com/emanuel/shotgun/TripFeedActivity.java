@@ -38,11 +38,14 @@ public class TripFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_feed);
 
+        //Set logged in user
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs),0);
         String username = sharedPref.getString(getString(R.string.username_key),getString(R.string.guest));
 
+        // initialize the list view
         listView = (ListView) findViewById(R.id.lv_trips);
 
+        // initialize the floating action button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +56,7 @@ public class TripFeedActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Load information from the database
         DBHelper db = new DBHelper(this);
         try {
             db.open();
@@ -114,7 +118,6 @@ public class TripFeedActivity extends AppCompatActivity {
     }
 
     private void signOut(){
-        // SAVE THE CURRENT USER AS THIS USER
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.my_prefs),0);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.username_key), "");
@@ -135,11 +138,28 @@ public class TripFeedActivity extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_item_trip, parent, false);
+
+            int remainingRiders;
+            String creator;
+
+            // Load information from the database
+            DBHelper db = new DBHelper(getApplicationContext());
+            try {
+                db.open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            remainingRiders = db.getRemainingSeats(trips.get(position));
+            creator = db.getTripCreator(trips.get(position));
+            db.close();
+
             TextView tv_name = (TextView) rowView.findViewById(R.id.trip_name);
-            TextView tv_location = (TextView) rowView.findViewById(R.id.trip_location);
+            TextView tv_creator = (TextView) rowView.findViewById(R.id.trip_creator);
+            TextView tv_seats = (TextView) rowView.findViewById(R.id.trip_seats);
 
             tv_name.setText(trips.get(position).name);
-            tv_location.setText(trips.get(position).location);
+            tv_creator.setText(creator);
+            tv_seats.setText(remainingRiders + " seats available");
 
             return rowView;
         }

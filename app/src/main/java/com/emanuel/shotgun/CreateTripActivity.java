@@ -31,6 +31,7 @@ import java.util.Calendar;
 
 public class CreateTripActivity extends AppCompatActivity {
 
+    public static final long DAY_IN_MILLIS = 86400000;
     long departTime;
     long returnTime;
     boolean returnTimeSet = false;

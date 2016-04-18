@@ -15,8 +15,7 @@
         android:gravity="bottom"
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
-        android:text="Trip to Yosemite"
-        android:background="@drawable/yosemite2"/>
+        android:text="Trip to Yosemite"/>
 
     <ScrollView
         android:layout_width="match_parent"
