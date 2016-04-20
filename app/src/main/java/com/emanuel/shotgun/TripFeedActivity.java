@@ -107,6 +107,8 @@ public class TripFeedActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_explore:
+                intent= new Intent(this, MapActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_sign_out:
                 signOut();

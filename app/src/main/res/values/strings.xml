@@ -179,6 +179,7 @@
     <!--Settings Activity-->
     <string name="pref_title_user_view">User View</string>
     <string name="pref_summary_user_view">Choose which users can connect with you.</string>
+    <string name="title_activity_map">MapActivity</string>
 
 
 </resources>
