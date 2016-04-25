@@ -13,12 +13,14 @@
         android:text="Trip name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/trip_creator"
         style="@style/h3"
         android:text="User's name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/trip_seats"
         style="@style/h3"
