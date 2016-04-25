@@ -11,7 +11,8 @@ public class MapActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.mapfragment);
+        addMapFragment();
     }
 
     private void addMapFragment() {
